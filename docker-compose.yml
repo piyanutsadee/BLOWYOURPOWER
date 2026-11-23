@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: .
+    container_name: blow-your-power-backend
+    ports:
+      - "${BACKEND_PORT:-18080}:8080"
+    # Default: demo mode (works anywhere without a microphone).
+    # For real microphone on Linux/Raspberry Pi:
+    #   1. Remove "--demo" from command below
+    #   2. Uncomment `devices` and `group_add` below
+    command: ["--host", "0.0.0.0", "--port", "8080", "--demo"]
+    # devices:
+    #   - /dev/snd:/dev/snd
+    # group_add:
+    #   - audio
+    restart: unless-stopped
+
+  frontend:
+    build: ./client
+    container_name: blow-your-power-frontend
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    environment:
+      - VITE_BACKEND_URL=http://backend:8080
+    volumes:
+      - ./client/src:/app/src
+      - ./client/index.html:/app/index.html
+    depends_on:
+      - backend
+    restart: unless-stopped
