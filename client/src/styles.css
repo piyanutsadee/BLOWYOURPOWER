@@ -140,7 +140,7 @@ button:focus-visible, .lungs-model:focus-visible {
   margin-left: calc(-0.89 * var(--u));
   border-radius: calc(2.3 * var(--u)) calc(2.9 * var(--u)) calc(2.45 * var(--u)) calc(1.4 * var(--u));
   transform: translateY(calc(-0.30 * var(--u)));
-  font: 1000 calc(3.56 * var(--u)) / 1 Nunito, sans-serif;
+  font: 1000 calc(2.5 * var(--u)) / 1 Nunito, sans-serif;
   letter-spacing: -0.04em;
   white-space: nowrap;
   background: linear-gradient(175deg, #31aee3 5%, #289cd4 39%, #167fb9 100%);
@@ -172,11 +172,11 @@ button:focus-visible, .lungs-model:focus-visible {
   position: absolute;
   z-index: 3;
   top: 3.43%;
-  left: 51.75%;
+  left: 54.2%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1.23fr;
+  grid-template-columns: 1fr 1fr 1.2fr;
   gap: calc(0.54 * var(--u));
-  width: 32.85%;
+  width: 31%;
   height: calc(3.68 * var(--u));
   transform: translateX(-50%);
   border-radius: 999px;
@@ -367,12 +367,6 @@ button:focus-visible, .lungs-model:focus-visible {
   font-weight: 600;
   line-height: 1.45;
   white-space: nowrap;
-}
-
-.example-label {
-  color: #487991;
-  font-size: max(10px, calc(0.73 * var(--u)));
-  font-weight: 400;
 }
 
 .rate-row {
@@ -754,6 +748,12 @@ button:focus-visible, .lungs-model:focus-visible {
   font-size: 1.08rem;
 }
 
+.sound-volume input {
+  flex: 1;
+  min-width: 0;
+  accent-color: #1789c5;
+}
+
 .sensitivity output {
   font-family: Nunito, sans-serif;
   font-variant-numeric: tabular-nums;
@@ -838,7 +838,7 @@ button:focus-visible, .lungs-model:focus-visible {
   }
 
   .brand-wordmark {
-    font-size: calc(2.87 * var(--u));
+    font-size: calc(2.1 * var(--u));
   }
 
   .main-navigation {
@@ -983,6 +983,520 @@ button:focus-visible, .lungs-model:focus-visible {
     height: 335px;
     margin-bottom: -3.8rem;
   }
+}
+
+/* ---------- ผลประเมินการเป่า ---------- */
+.lung-dashboard .result-card {
+  font-size: max(0.9rem, calc(1.1 * var(--u)));
+}
+
+.lung-dashboard .result-card {
+  position: fixed;
+  z-index: 30;
+  top: 50%;
+  left: 50%;
+  width: min(calc(100vw - 2rem), max(31rem, calc(34 * var(--u))));
+  max-height: calc(100svh - 2rem);
+  overflow-y: auto;
+  padding: 1.2em 1.4em 1.3em;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  --tier: #0a9a63;
+  animation: result-pop 260ms ease-out;
+}
+
+.result-card[data-tier="good"] { --tier: #1789c5; }
+.result-card[data-tier="train"] { --tier: #d9792b; }
+
+@keyframes result-pop {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+}
+
+.result-card .card-title { justify-content: center; }
+
+.result-score {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.3em;
+  margin-top: 0.6em;
+  color: var(--tier);
+  font-family: Nunito, sans-serif;
+}
+
+.result-score strong { font-size: 4em; font-weight: 1000; line-height: 1; }
+.result-score span { font-size: 1.3em; font-weight: 700; opacity: 0.75; }
+
+.result-card h3 {
+  margin-top: 0.3em;
+  color: var(--tier);
+  font-size: 1.6em;
+  font-weight: 600;
+}
+
+.result-card p {
+  margin-top: 0.5em;
+  font-size: 1em;
+  line-height: 1.65;
+}
+
+.result-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
+  margin: 1em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.result-metrics li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.6em 0.3em;
+  border-radius: 0.9em;
+  background: #e9f7fd;
+  box-shadow: inset 0 1px 2px #8fbadc66;
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+
+.result-metrics b {
+  color: var(--ink);
+  font-family: Nunito, sans-serif;
+  font-size: 1.5em;
+}
+
+.result-card .result-evidence {
+  padding: 0.6em 0.9em;
+  border-radius: 0.9em;
+  background: #e1f4ee;
+  font-size: 0.92em;
+  text-align: left;
+}
+
+.result-evidence a { color: #0d6a8e; font-weight: 600; }
+
+.result-card .result-disclaimer {
+  color: #4b7389;
+  font-size: 0.8em;
+  line-height: 1.55;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6em;
+  margin-top: 1em;
+}
+
+.result-actions button {
+  min-height: 2.8em;
+  padding: 0 1.4em;
+  border-radius: 999px;
+  background: var(--blue-button);
+  box-shadow: var(--blue-edge);
+  color: #f6fcff;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.result-actions button.secondary {
+  background: #d3ecf9;
+  box-shadow: none;
+  color: var(--ink);
+}
+
+/* ---------- ปุ่มการแพทย์ (หน้าเรียนรู้) ---------- */
+.medical-open,
+.pill-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(0.7 * var(--u));
+  width: 100%;
+  min-height: calc(4.4 * var(--u));
+  margin-top: calc(0.9 * var(--u));
+  border-radius: 999px;
+  color: #f6fcff;
+  background: var(--blue-button);
+  box-shadow: var(--blue-edge);
+  font-size: calc(1.5 * var(--u));
+  font-weight: 600;
+  text-shadow: 0 2px 1px #176c9b9e;
+}
+
+.medical-open svg {
+  width: calc(2.4 * var(--u));
+  height: calc(2.4 * var(--u));
+  filter: drop-shadow(0 3px 1.5px #0a6ca896);
+}
+
+.medical-open:hover,
+.pill-action:hover {
+  filter: brightness(1.08);
+}
+
+.pill-action.quiet {
+  color: var(--ink);
+  background: #d3ecf9;
+  box-shadow: none;
+  text-shadow: none;
+  font-size: calc(1.25 * var(--u));
+}
+
+.mic-button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.55) opacity(0.65);
+  transform: none;
+}
+
+/* ---------- ผลทดสอบ / บริหารปอด ---------- */
+.score-row {
+  display: flex;
+  justify-content: space-around;
+  gap: calc(1 * var(--u));
+  margin: calc(0.7 * var(--u)) 0 0;
+}
+
+.score-row div {
+  display: grid;
+  justify-items: center;
+}
+
+.score-row dt {
+  font-size: calc(1.2 * var(--u));
+  font-weight: 600;
+}
+
+.score-row dd {
+  margin: 0;
+  font: 1000 calc(3.2 * var(--u)) / 1.1 Nunito, sans-serif;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 0 #fbffff;
+}
+
+.exercise-options {
+  display: grid;
+  gap: calc(0.55 * var(--u));
+  margin-top: calc(0.7 * var(--u));
+}
+
+.exercise-options button {
+  display: grid;
+  gap: 0.15em;
+  padding: calc(0.75 * var(--u)) calc(1.2 * var(--u));
+  border-radius: calc(1.9 * var(--u));
+  background: #e4f4fc;
+  box-shadow: inset 0 1px 2px #8fbadc66;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.exercise-options button b {
+  font-size: calc(1.4 * var(--u));
+  font-weight: 600;
+}
+
+.exercise-options button span {
+  color: #3f7491;
+  font-size: max(11px, calc(1.02 * var(--u)));
+}
+
+.exercise-options button:hover {
+  filter: brightness(1.04);
+}
+
+.exercise-options button[aria-pressed="true"] {
+  color: #f6fcff;
+  background: var(--blue-button);
+  box-shadow: var(--blue-edge);
+  text-shadow: 0 2px 1px #176c9b9e;
+}
+
+.exercise-options button[aria-pressed="true"] span {
+  color: #d9f3ff;
+}
+
+.step-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(0.5 * var(--u));
+  margin: calc(1 * var(--u)) 0 calc(0.3 * var(--u));
+  padding: 0;
+  list-style: none;
+}
+
+.step-chips li {
+  display: grid;
+  place-items: center;
+  min-width: calc(3 * var(--u));
+  height: calc(3 * var(--u));
+  padding: 0 calc(0.7 * var(--u));
+  border-radius: 999px;
+  background: #cfe6f2;
+  color: #3f7491;
+  font: 800 calc(1.2 * var(--u)) / 1 Nunito, Mitr, sans-serif;
+}
+
+.step-chips li[data-current] {
+  outline: 3px solid #23d2df;
+  background: #e9fbfd;
+}
+
+.step-chips li[data-done] {
+  color: #fff;
+  background: linear-gradient(155deg, #44e18c 12%, #0ab56e 76%);
+}
+
+.step-chips svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.pacer-face {
+  position: relative;
+  width: calc(12.2 * var(--u));
+  overflow: hidden;
+  padding: 0;
+}
+
+button.pacer-face {
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.pacer-disc {
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 35% 16%, #43dce8, #0abcce 56%, #06a9bc 88%);
+  box-shadow: inset 0 3px 3px #86f5f6e0, inset 0 -6px 2px #0798acbe;
+  transition: transform 90ms linear;
+}
+
+.pacer-count {
+  position: relative;
+  z-index: 1;
+  color: #f5ffff;
+  font: 1000 calc(4 * var(--u)) / 1 Nunito, sans-serif;
+  text-shadow: 0 2px 2px #0a7f94;
+}
+
+.pacer-count[data-small] {
+  font: 600 calc(1.6 * var(--u)) / 1 Mitr, sans-serif;
+}
+
+.exercise-pacer .pill-action {
+  margin-top: calc(0.9 * var(--u));
+}
+
+/* ---------- ข้อมูลการแพทย์ (การ์ดลอย) ---------- */
+.medical-overlay {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.6rem, 2vw, 1.6rem);
+  background: #0a5a8a59;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: result-fade 180ms ease-out;
+}
+
+@keyframes result-fade {
+  from { opacity: 0; }
+}
+
+.medical-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 76rem);
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: var(--panel);
+  box-shadow: var(--panel-shadow), 0 1.2rem 3rem #0a4d7a59;
+  color: var(--ink);
+  font-size: clamp(0.95rem, 0.5rem + 0.8vw, 1.2rem);
+}
+
+.medical-modal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  flex: 0 0 auto;
+  margin: 0.9em 0.9em 0;
+  padding: 0.55em 0.7em 0.55em 1em;
+  border-radius: 999px;
+  color: #f8fcff;
+  background: var(--blue-button);
+  box-shadow: var(--blue-edge);
+  text-shadow: 0 2px 1px #176c9b9e;
+}
+
+.medical-modal-bar > svg {
+  width: 2.2em;
+  height: 2.2em;
+  filter: drop-shadow(0 3px 1.5px #0a6ca896);
+}
+
+.medical-modal-bar h2 {
+  flex: 1;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.medical-modal-bar h2 small {
+  margin-left: 0.5em;
+  font: 800 0.55em Nunito, sans-serif;
+  opacity: 0.85;
+}
+
+.medical-close {
+  min-height: 2.4em;
+  padding: 0 1.1em;
+  border-radius: 999px;
+  color: var(--ink);
+  background: linear-gradient(175deg, #f0fbff, #e2f2fb);
+  box-shadow: inset 0 2px 0 #fff, 0 2px 4px #1262916b;
+  font-weight: 600;
+  text-shadow: none;
+}
+
+.medical-close:hover {
+  filter: brightness(0.96);
+}
+
+.medical-modal-body {
+  display: grid;
+  gap: 1.1em;
+  padding: 1em 1.1em 1.4em;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.medical-layout {
+  display: grid;
+  grid-template-columns: minmax(13rem, 21rem) minmax(0, 1fr);
+  gap: 1em;
+  align-items: start;
+}
+
+.medical-list {
+  display: grid;
+  gap: 0.6em;
+}
+
+.medical-list button {
+  display: grid;
+  gap: 0.15em;
+  padding: 0.8em 1.1em;
+  border-radius: 1.2em;
+  background: #e4f4fc;
+  box-shadow: inset 0 1px 2px #8fbadc66;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.medical-list button b { font-size: 1.1em; font-weight: 600; }
+.medical-list button span { color: #3f7491; font-size: 0.82em; }
+.medical-list button:hover { filter: brightness(1.04); }
+
+.medical-list button[aria-pressed="true"] {
+  color: #f6fcff;
+  background: linear-gradient(180deg, #43dce8, #17b5cb);
+  box-shadow: var(--blue-edge);
+  text-shadow: 0 2px 1px #176c9b9e;
+}
+
+.medical-list button[aria-pressed="true"] span { color: #e3fbff; }
+
+.medical-article {
+  padding: 1.2em 1.4em;
+  border-radius: 1.5em;
+  background: #f3fafe;
+  box-shadow: inset 0 1px 2px #8fbadc40;
+}
+
+.medical-article h3 { font-size: 1.45em; font-weight: 600; line-height: 1.4; }
+
+.medical-article p,
+.medical-criteria > p {
+  max-width: 62ch;
+  margin: 0.7em 0 0;
+  line-height: 1.8;
+}
+
+.medical-article .medical-why { font-weight: 600; }
+
+.medical-how {
+  margin-top: 1em;
+  padding: 0.7em 1em;
+  border-radius: 1em;
+  background: #e1f4ee;
+}
+
+.medical-how b { color: #087a57; }
+.medical-how p { margin-top: 0.2em; }
+
+.medical-source {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.55em 1.2em;
+  border-radius: 999px;
+  color: #f6fcff;
+  background: var(--blue-button);
+  box-shadow: var(--blue-edge);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.medical-criteria h3 { font-size: 1.3em; font-weight: 600; }
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8em;
+  margin-top: 0.8em;
+}
+
+.tier-card {
+  --tier: #0a9a63;
+  padding: 0.8em 1em 1em;
+  border-top: 0.4em solid var(--tier);
+  border-radius: 1.1em;
+  background: #f3fafe;
+  box-shadow: inset 0 1px 2px #8fbadc40;
+}
+
+.tier-card[data-tier="good"] { --tier: #1789c5; }
+.tier-card[data-tier="train"] { --tier: #d9792b; }
+
+.tier-card h4 { margin: 0; color: var(--tier); font-size: 1.25em; font-weight: 600; }
+.tier-card b { display: block; margin-top: 0.35em; font-size: 0.92em; }
+.tier-card p { margin: 0.35em 0 0; color: #3f6f87; font-size: 0.88em; line-height: 1.6; }
+
+.medical-note { color: #4b7389; font-size: 0.85em; }
+
+@media (max-width: 760px) {
+  .medical-layout,
+  .tier-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .medical-list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(9rem, 1fr);
+    overflow-x: auto;
+  }
+
+  .medical-list button span { display: none; }
+  .medical-modal-bar h2 small { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

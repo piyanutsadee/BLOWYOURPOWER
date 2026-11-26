@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { AttemptTracker, SAMPLE_DT } from "../lib/attemptTracker.js";
 
 export const INITIAL_SESSION = {
   screen: "TITLE",
@@ -80,6 +81,44 @@ export function useServerBreathing() {
   }, []);
 
   return { session, connection, command };
+}
+
+/**
+ * ประเมินการเป่าแต่ละรอบ: อ่าน session ล่าสุดทุก SAMPLE_DT วินาที
+ * เมื่อรอบจบ (ฟื้นฟูสำเร็จ หรือหยุดเป่าจนปอดย้อนกลับถึง 0) จะได้ result สำหรับแสดงผล
+ * `resetKey` เปลี่ยนเมื่อเปลี่ยนแหล่งข้อมูล (server/จำลอง) เพื่อเริ่มติดตามใหม่
+ */
+export function useAttemptResult(session, enabled, resetKey) {
+  const [result, setResult] = useState(null);
+  const latest = useRef(session);
+  const resultRef = useRef(null);
+  latest.current = session;
+
+  useEffect(() => {
+    const tracker = new AttemptTracker();
+    resultRef.current = null;
+    setResult(null);
+    if (!enabled) return;
+
+    const timer = setInterval(() => {
+      const finished = tracker.push(latest.current);
+      if (finished) {
+        resultRef.current = finished;
+        setResult(finished);
+      } else if (tracker.active && resultRef.current) {
+        resultRef.current = null; // เริ่มรอบใหม่ ซ่อนผลเก่า
+        setResult(null);
+      }
+    }, SAMPLE_DT * 1000);
+    return () => clearInterval(timer);
+  }, [enabled, resetKey]);
+
+  const dismiss = useCallback(() => {
+    resultRef.current = null;
+    setResult(null);
+  }, []);
+
+  return { result, dismiss };
 }
 
 const SIMULATION_IDLE = { ...INITIAL_SESSION, demo: true };

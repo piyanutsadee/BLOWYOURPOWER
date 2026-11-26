@@ -110,6 +110,12 @@ export default function Icon({ name, className = "" }) {
           </g>
         </svg>
       );
+    case "medical":
+      return (
+        <svg {...common}>
+          <path d="M9.2 2.5h5.6c.9 0 1.6.7 1.6 1.6v4.3h4.3c.9 0 1.6.7 1.6 1.6v5.6c0 .9-.7 1.6-1.6 1.6h-4.3v4.3c0 .9-.7 1.6-1.6 1.6H9.2c-.9 0-1.6-.7-1.6-1.6v-4.3H3.3c-.9 0-1.6-.7-1.6-1.6v-5.6c0-.9.7-1.6 1.6-1.6h4.3V4.1c0-.9.7-1.6 1.6-1.6Z" />
+        </svg>
+      );
     case "reset":
       return (
         <svg {...common} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
